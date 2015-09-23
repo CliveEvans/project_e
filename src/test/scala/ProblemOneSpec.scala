@@ -27,9 +27,7 @@ class ProblemOneSpec extends Specification {
   }
 
   def sumMultipleBelow(i: Int):Int = {
-    val below: Seq[Int] = multiplesBelow(i)
-//    println(below)
-    below.fold(0)(_ + _)
+    multiplesBelow(i).fold(0)(_ + _)
   }
 
   "sum multiples below 10" should {
@@ -41,7 +39,7 @@ class ProblemOneSpec extends Specification {
   "my answer should be" in {
     val answer: Int = sumMultipleBelow(1000)
     println(answer)
-    answer should be_>(23)
+    answer should be_==(4613732)
   }
 
 }

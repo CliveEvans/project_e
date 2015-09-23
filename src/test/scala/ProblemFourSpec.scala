@@ -31,7 +31,7 @@ class ProblemFourSpec extends Specification {
 
   "highest palindrome" should {
     "be 906609" in {
-      perms(999, 999).filter(isPalindrome).filterNot(isPrime).sorted.reverse.head should be_==(906609)
+      perms(999, 999).filter(isPalindrome).sorted.reverse.head should be_==(906609)
     }
   }
 }

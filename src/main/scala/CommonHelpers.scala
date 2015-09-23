@@ -10,7 +10,8 @@ object CommonHelpers {
   }
 
   def isPrime(i: Long): Boolean = {
-    ! from(2L, (i/2)).exists(isFactor(i))
+    val sqrRtI = Math.sqrt(i).toInt
+    ! from(2L, sqrRtI + 1).exists(isFactor(i))
   }
 
   def countDown(n: Long):Stream[Long] = {
