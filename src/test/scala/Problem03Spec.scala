@@ -1,7 +1,7 @@
 import org.specs2.mutable.Specification
 import CommonHelpers._
 
-class ProblemThreeSpec extends Specification {
+class Problem03Spec extends Specification {
 
   import ProblemThree._
 

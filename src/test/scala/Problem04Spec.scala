@@ -1,7 +1,7 @@
 import org.specs2.mutable.Specification
 import CommonHelpers._
 
-class ProblemFourSpec extends Specification {
+class Problem04Spec extends Specification {
 
   def isPalindrome(palindromicNumber: Long):Boolean = {
     palindromicNumber.toString.reverse == palindromicNumber.toString

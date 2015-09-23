@@ -1,6 +1,6 @@
 import org.specs2.mutable.Specification
 
-class ProblemTwoSpec extends Specification {
+class Problem02Spec extends Specification {
 
   def sumEvenFib(lessThan: Int): BigInt = {
     var minusOne:BigInt = 1

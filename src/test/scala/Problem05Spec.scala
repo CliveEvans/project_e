@@ -2,7 +2,7 @@ import org.specs2.mutable.Specification
 
 import scala.collection.immutable.Range.Inclusive
 
-class ProblemFiveSpec extends Specification {
+class Problem05Spec extends Specification {
 
   def divisibleBy(range: Inclusive): (Int) => Boolean = i => {
     ! range.exists( i % _ != 0)

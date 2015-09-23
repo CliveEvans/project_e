@@ -1,6 +1,6 @@
 import org.specs2.mutable.Specification
 
-class ProblemSixSpec extends Specification {
+class Problem06Spec extends Specification {
 
   /*
 The sum of the squares of the first ten natural numbers is,

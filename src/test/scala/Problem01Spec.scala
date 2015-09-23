@@ -1,6 +1,6 @@
 import org.specs2.mutable.Specification
 
-class ProblemOneSpec extends Specification {
+class Problem01Spec extends Specification {
 
   def multiplesBelow(number: Int):Seq[Int] = (1 to number - 1).filter(divisible)
 
