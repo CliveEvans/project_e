@@ -1,4 +1,5 @@
 import org.specs2.mutable.Specification
+import Primes._
 
 class Problem07Spec extends Specification {
 
