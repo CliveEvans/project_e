@@ -5,7 +5,10 @@ object Primes {
   def isPrime(i: Long): Boolean = {
     if (i == 2) true
     else if ((i & 1) == 0) false
-    else primes.takeWhile(_ <= Math.sqrt(i)).forall(!isFactor(i)(_))
+    else {
+      val sqrt: Double = Math.sqrt(i)
+      primes.view.takeWhile(_ <= sqrt).forall(!isFactor(i)(_))
+    }
   }
 
   def primesBelow(limit: Int): Seq[Long] = {
@@ -42,7 +45,7 @@ object Primes {
     }
     def isPrime(i: Int, knownPrimes: Seq[Int]): Boolean = {
       val rootOfI: Double = Math.sqrt(i)
-      knownPrimes.takeWhile(_ <= rootOfI).forall(i % _ != 0)
+      knownPrimes.view.takeWhile(_ <= rootOfI).forall(i % _ != 0)
     }
     next(3, 2, Vector(2)) // effectively constant time for append on Vector
   }

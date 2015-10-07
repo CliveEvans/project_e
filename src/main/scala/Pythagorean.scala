@@ -16,6 +16,6 @@ object Pythagorean extends App {
 
   def product(t: (Int, Int, Int)) = t._1 * t._2 * t._3
 
-  println(tuple3Generator(1000).find(isPythagorean).map(product))
+  println(tuple3Generator(1000).view.find(isPythagorean).map(product))
 
 }
