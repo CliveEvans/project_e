@@ -34,7 +34,9 @@ Find the product abc.
     }
     "obey a < b < c" in {
       val tuples: Seq[(Int, Int, Int)] = tuple3Generator(1000)
-      tuples.toStream should contain(haveABCInAscendingOrder).forall
+      // the matcher is lovel and all that, but too damn slow
+//      tuples should contain(haveABCInAscendingOrder).forall
+      tuples.forall{case (a,b,c) => a < b && b < c}
     }
   }
 

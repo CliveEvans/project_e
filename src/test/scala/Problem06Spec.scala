@@ -15,10 +15,15 @@ Find the difference between the sum of the squares of the first one hundred natu
    */
 
   "naively" should {
+    "give me the sum of the first 10 squares" in {
+      val sumOfSquares = (1 to 10).map(sqr).fold(0)(sum)
+      val sums = (1 to 10).fold(0)(sum)
+      (sums * sums) - sumOfSquares should be_==(2640)
+    }
     "give me the sum of the first 100 squares" in {
       val sumOfSquares = (1 to 100).map(sqr).fold(0)(sum)
       val sums = (1 to 100).fold(0)(sum)
-      (sums * sums) - sumOfSquares should be_==(2640)
+      (sums * sums) - sumOfSquares should be_==(25164150)
     }
   }
 
