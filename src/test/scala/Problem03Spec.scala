@@ -1,9 +1,7 @@
 import org.specs2.mutable.Specification
-import CommonHelpers._
+import Primes._
 
 class Problem03Spec extends Specification {
-
-  import ProblemThree._
 
   "prime factors" should {
     "be 3 of 9" in {
