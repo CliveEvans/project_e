@@ -11,11 +11,11 @@ object Primes {
     }
   }
 
-  def primeFactors(i: Long): Seq[Long] = i match {
-    case 1 => Nil
-    case p if isPrime(p) => Seq(p)
+  def primeFactors(i: Long): Stream[Long] = i match {
+    case 1 => Stream.empty
+    case p if isPrime(p) => Stream.cons(p, Stream.empty)
     case _ =>
-      firstPrimeFactor(i).map(p => primeFactors(i/p) :+ p).getOrElse(Nil)
+      firstPrimeFactor(i).map(p => primeFactors(i/p) :+ p).getOrElse(Stream.empty)
   }
 
   def firstPrimeFactor(i: Long): Option[Long] = {

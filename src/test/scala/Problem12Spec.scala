@@ -1,5 +1,4 @@
 import CommonHelpers.isFactor
-import com.sun.java.swing.action.NextAction
 import org.specs2.mutable.Specification
 
 import scala.collection.immutable.Stream.from
@@ -22,29 +21,52 @@ class Problem12Spec extends Specification {
     tail(1, 1)
   }
 
+  def factors(i: Long) = {
+    from(1)
+      .takeWhile(_ <= Math.sqrt(i))
+      .filter(isFactor(i)(_))
+      .flatMap(f => Seq(f, i / f))
+  }
+
   "triangle numbers" should {
     "be 28 at 7" in {
       triangles.take(7).last should be_==(28)
     }
   }
 
-  def factors(i: Long): Seq[Long] = {
-    from(1).view.map(_.toLong).takeWhile(_ <= i).filter(isFactor(i) _)
+  "factors" should {
+    "give 1 and 7 for 7" in {
+      factors(7) should containAllOf(Seq(1,7))
+    }
+
+    "give 1,2,3,6 for 6" in {
+      factors(6) should containAllOf(Seq(1,2,3,6))
+    }
+
+    "include non prime factors" in {
+      factors(28) should containAllOf(Seq(1, 2, 4, 7, 14, 28))
+    }
+
+    "not be slow if I don't evaluate it" in {
+      factors(76576500)
+      true
+    }
   }
 
   "7th triangle" should {
     "have 5 factors" in {
-      factors(triangles(6)) should beEqualTo(Seq(1, 2, 4, 7, 14, 28))
+      factors(triangles(6)) should containAllOf(Seq(1, 2, 4, 7, 14, 28))
     }
 
     "be the first with 5 or more factors" in {
-      from(1).map(triangles).dropWhile(factors(_).size < 5).head should beEqualTo(28)
+      triangles.dropWhile(factors(_).size < 5).head should beEqualTo(28)
     }
+
   }
 
-//  "with 500 divisors" should {
-//    "be really big" in {
-//      from(1).view.map(triangles).dropWhile(factors(_).size < 50).head should beEqualTo(28)
-//    }
-//  }
+  "with 500 divisors" should {
+    "be really big" in {
+      triangles.dropWhile(factors(_).size < 500).head should beEqualTo(76576500)
+    }
+  }
 }
