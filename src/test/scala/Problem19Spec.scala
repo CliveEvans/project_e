@@ -65,7 +65,7 @@ class Problem19Spec extends Specification {
   }
 
   def isFirst: Matcher[DateTime] = {
-    date: DateTime => (date.getDayOfMonth() == 1, s"$date is not the first of the month, it is the ${date.getDayOfMonth()} day")
+    date: DateTime => (date.getDayOfMonth == 1, s"$date is not the first of the month, it is the ${date.getDayOfMonth} day")
   }
 
   def firstsFrom(startDate: DateTime): Stream[DateTime] = {
