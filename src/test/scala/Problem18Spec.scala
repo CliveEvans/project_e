@@ -1,5 +1,6 @@
 import org.specs2.ScalaCheck
 import org.specs2.mutable.Specification
+import Triangle._
 
 class Problem18Spec extends Specification with ScalaCheck {
 
@@ -37,7 +38,7 @@ class Problem18Spec extends Specification with ScalaCheck {
    */
 
   import Node._
-  import Treebuilder.buildFrom
+  import Trianglebuilder.from
 
   "an empty node" should {
     "have a best cost of 0" in {
@@ -72,7 +73,7 @@ class Problem18Spec extends Specification with ScalaCheck {
 
   "treebuilder" should {
     "create a single node succesfully" in {
-      buildFrom("21") must be_==(terminatingNode(21))
+      from("21") must be_==(terminatingNode(21))
     }
     "create a simple(!) tree" in {
       val tree = """
@@ -80,7 +81,7 @@ class Problem18Spec extends Specification with ScalaCheck {
           |47 53
         """.stripMargin
 
-      buildFrom(tree) must be_==(
+      from(tree) must be_==(
         new Populated(21, terminatingNode(47), terminatingNode(53))
       )
     }
@@ -105,7 +106,7 @@ class Problem18Spec extends Specification with ScalaCheck {
       val n5  = new Populated(5, n24, n3)
       val n7  = new Populated(7, n16, n5)
 
-      buildFrom(tree) must be_==(n7)
+      from(tree) must be_==(n7)
     }
   }
 
@@ -118,7 +119,7 @@ class Problem18Spec extends Specification with ScalaCheck {
                    |     8 5 9 3
                    |     """.stripMargin
 
-      buildFrom(tree).largestTotal must be_==(23)
+      from(tree).largestTotal must be_==(23)
     }
   }
 
@@ -143,74 +144,9 @@ class Problem18Spec extends Specification with ScalaCheck {
           |    04 62 98 27 23 09 70 98 73 93 38 53 60 04 23
         """.stripMargin
 
-      buildFrom(largeTree).largestTotal must be_==(1074)
+      from(largeTree).largestTotal must be_==(1074)
     }
   }
 
 }
 
-
-object Node {
-
-  def terminatingNode(element: Long): Node = {
-    new Populated(element, empty, empty)
-  }
-
-  val empty:Node = new Empty
-}
-abstract class Node {
-  def isEmpty: Boolean
-
-  val largestTotal: Long
-}
-
-class Empty extends Node {
-  def isEmpty: Boolean = true
-
-  val largestTotal = 0L
-
-  def canEqual(other: Any): Boolean = other.isInstanceOf[Node]
-
-  override def equals(other: Any): Boolean = other match {
-    case that: Node => that.isEmpty
-    case _ => false
-  }
-
-  override def hashCode(): Int = 77
-
-  override def toString = "Empty"
-
-}
-
-case class Populated(val elem: Long, val left: Node, val right: Node) extends Node {
-  def isEmpty: Boolean = false
-
-  val largestTotal = elem + Math.max(left.largestTotal, right.largestTotal)
-
-}
-
-object Treebuilder {
-  import Node._
-
-  def buildFrom(s: String):Node = {
-    def nodes(elements: Seq[Long], children: Seq[(Node, Node)]): Seq[Node] = {
-      elements.zip(children).map{ case (element, (left, right)) => new Populated(element, left, right)}
-    }
-
-    def readLine(l: String): List[Long] = {
-      l.split("""\s+""").map(_.toLong).toList
-    }
-    val lines:Seq[Seq[Long]] = s.split("""\n""").map(_.trim).filter(_.nonEmpty).reverse.map(readLine)
-
-    val lastLine: Seq[Node] = lines.head.map(new Populated(_, empty, empty))
-
-    lines.tail.foldLeft(lastLine){case (previousLine, thisLine) =>
-      val children: Seq[(Node, Node)] = previousLine.sliding(2).collect{
-        case List(left, right) => (left, right)
-        case List(single) => (single, empty)
-      }.toList
-      nodes(thisLine, children)
-    }.head
-
-  }
-}
