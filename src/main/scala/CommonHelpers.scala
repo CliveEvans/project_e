@@ -21,6 +21,10 @@ object CommonHelpers {
       .flatMap(withFactor)
   }
 
+  def divisors(i: Long): Stream[Int] = {
+    factors(i).distinct.filter(_ != i)
+  }
+
   def isFactor(i: Long)(x: Long): Boolean = {
     i % x == 0
   }
