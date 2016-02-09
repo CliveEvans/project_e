@@ -5,16 +5,24 @@ object CommonHelpers {
     case _ => n #:: from(n + 1, stop)
   }
 
-  def isFactor(i: Long)(x: Long): Boolean = {
-    i % x == 0
-  }
-
   def countDown(n: Long):Stream[Long] = {
     if (n == 1) {
       Stream.empty
     } else {
       Stream.cons(n, countDown(n-1))
     }
+  }
+
+  def factors(i: Long): Stream[Int] = {
+    def withFactor(f: Int):Seq[Int] = Seq(f, (i/f).toInt)
+    Stream.from(1)
+      .takeWhile(_ <= Math.sqrt(i))
+      .filter(isFactor(i)(_))
+      .flatMap(withFactor)
+  }
+
+  def isFactor(i: Long)(x: Long): Boolean = {
+    i % x == 0
   }
 
 }
