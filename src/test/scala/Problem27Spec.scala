@@ -45,10 +45,8 @@ class Problem27Spec extends Specification {
   }
 
   def largestCoefficient(aIn: Range, bIn: Range):Long = {
-    val (numberOfPrimes, (a, b)) = sortedPrimesInRange(aIn, bIn).head
-    val coefficient = a * b
-    println(s"Found $numberOfPrimes at ($a, $b): $coefficient")
-    coefficient
+    val (_, (a, b)) = sortedPrimesInRange(aIn, bIn).head
+    a * b
   }
 
   "the coefficient of the largest" should {
