@@ -3,7 +3,8 @@ object Primes {
   import CommonHelpers._
 
   def isPrime(i: Long): Boolean = {
-    if (i == 2) true
+    if (i < 1) false
+    else if (i == 2) true
     else if ((i & 1) == 0) false
     else {
       val sqrt: Double = Math.sqrt(i)
